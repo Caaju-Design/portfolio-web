@@ -6,6 +6,20 @@ import { Card } from "@/components/ui/Card";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { listCases } from "@/lib/cases";
 
+/**
+ * ISR: HTML servido do CDN, regenerado a cada hora.
+ *
+ * Estática pura exigiria redeploy para um case novo aparecer. Dinâmica cobraria
+ * uma leitura do Firestore por visita, na página de maior tráfego, para um
+ * conteúdo que muda raramente. Uma hora é o meio-termo: publicou, aparece.
+ *
+ * Efeito colateral aceito: o build continua consultando o Firestore para gerar
+ * a primeira versão. Se o banco estiver indisponível, o deploy falha — ver
+ * ADR-023. A saída de emergência é trocar esta linha por
+ * `export const dynamic = "force-dynamic"`.
+ */
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   title: "Work",
   description:
