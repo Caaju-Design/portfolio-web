@@ -1,0 +1,34 @@
+{
+  "name": "caaju-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "check-env": "node --env-file=.env.local scripts/check-env.mjs",
+    "seed": "node --env-file=.env.local scripts/seed.mjs",
+    "check-firebase": "node --env-file=.env.local scripts/check-firebase.mjs",
+    "check-token": "node --env-file=.env.local scripts/check-token.mjs",
+    "check-calendar": "node --env-file=.env.local scripts/check-calendar.mjs",
+    "backfill-ttl": "node --env-file=.env.local scripts/backfill-ttl.mjs",
+    "check-indexes": "node --env-file=.env.local scripts/check-indexes.mjs"
+  },
+  "dependencies": {
+    "firebase": "^12.4.0",
+    "firebase-admin": "^13.5.0",
+    "next": "^16.3.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.13",
+    "@types/node": "^22.15.3",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.9.2"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "indexes": [],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "accessLogs",
+      "fieldPath": "*",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "accessLogs",
+      "fieldPath": "deleteAfter",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "accessLogs",
+      "fieldPath": "timestamp",
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "order": "DESCENDING",
+          "queryScope": "COLLECTION"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "cases",
+      "fieldPath": "*",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "cases",
+      "fieldPath": "status",
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "order": "DESCENDING",
+          "queryScope": "COLLECTION"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leads",
+      "fieldPath": "*",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "leads",
+      "fieldPath": "deleteAfter",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "leads",
+      "fieldPath": "lastSeenAt",
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "order": "DESCENDING",
+          "queryScope": "COLLECTION"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "rateLimits",
+      "fieldPath": "*",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "rateLimits",
+      "fieldPath": "expiresAt",
+      "ttl": true,
+      "indexes": []
+    }
+  ]
+}
