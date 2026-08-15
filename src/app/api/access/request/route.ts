@@ -92,10 +92,19 @@ async function dispatchMagicLinkEmail(payload: { email: string; link: string; ca
   const body = JSON.stringify(payload);
   const signature = createHmac("sha256", secret).update(body).digest("hex");
 
-  await fetch(url, {
+  const response = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Caaju-Signature": `sha256=${signature}` },
     body,
     signal: AbortSignal.timeout(8000),
   });
+
+  // fetch NAO lanca excecao em 4xx/5xx. Sem esta checagem, um n8n respondendo
+  // erro era indistinguivel de sucesso: o visitante lia "the link is on its
+  // way" e o e-mail nunca saia. Custou uma tarde de diagnostico.
+  if (!response.ok) {
+    throw new Error(
+      `n8n recusou o envio do magic link: ${response.status} ${await response.text()}`,
+    );
+  }
 }

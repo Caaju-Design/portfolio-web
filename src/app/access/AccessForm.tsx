@@ -8,7 +8,7 @@ const field =
   "placeholder:text-subtle focus:border-primary/60 focus:outline-none";
 
 export function AccessForm({ caseSlug }: { caseSlug: string }) {
-  const [state, setState] = useState<"idle" | "sending" | "sent">("idle");
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "broken">("idle");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -21,20 +21,57 @@ export function AccessForm({ caseSlug }: { caseSlug: string }) {
     // comportamento correto do fluxo de link mágico do Firebase.
     window.localStorage.setItem("caaju:accessEmail", String(data.get("email") ?? ""));
 
-    await fetch("/api/access/request", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: data.get("email"),
-        company: data.get("company"),
-        jobTitle: data.get("jobTitle"),
-        website: data.get("website"), // honeypot
-        caseSlug,
-      }),
-    });
+    let response: Response;
+    try {
+      response = await fetch("/api/access/request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: data.get("email"),
+          company: data.get("company"),
+          jobTitle: data.get("jobTitle"),
+          website: data.get("website"), // honeypot
+          caseSlug,
+        }),
+      });
+    } catch (error) {
+      console.error("[access] requisição não completou", error);
+      setState("broken");
+      return;
+    }
 
-    // Resposta sempre igual, independente do resultado — evita enumeração.
+    // A resposta genérica de sucesso existe para impedir enumeração de e-mail:
+    // "existe" e "não existe" precisam ser indistinguíveis. Isso continua valendo.
+    //
+    // Mas 4xx aqui não fala sobre nenhum usuário — fala sobre a requisição estar
+    // malformada, e isso é bug nosso. Mostrar sucesso nesse caso é mentir para o
+    // visitante e esconder o defeito de nós mesmos.
+    if (!response.ok) {
+      console.error("[access] pedido recusado", response.status, await response.text());
+      setState("broken");
+      return;
+    }
+
     setState("sent");
+  }
+
+  if (state === "broken") {
+    return (
+      <div className="rounded-(--radius-card) border border-border bg-surface p-8 text-center">
+        <h2 className="text-h3">Something went wrong on our side</h2>
+        <p className="mt-3 text-sm text-muted text-pretty">
+          The request could not be completed. This is not about your address — it is a
+          problem here. Please try again, or write to{" "}
+          <a href="mailto:emanuel@caaju.com.br" className="text-primary underline">
+            emanuel@caaju.com.br
+          </a>{" "}
+          and I will send the link myself.
+        </p>
+        <Button onClick={() => setState("idle")} className="mt-6">
+          Try again
+        </Button>
+      </div>
+    );
   }
 
   if (state === "sent") {

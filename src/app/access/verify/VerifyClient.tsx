@@ -30,7 +30,11 @@ export function VerifyClient({ caseSlug }: { caseSlug: string }) {
 
         if (!response.ok) throw new Error("session rejected");
         router.replace(`/work/${caseSlug}/deep`);
-      } catch {
+      } catch (error) {
+        // Engolir este erro custou horas de diagnostico: o fluxo falhava e a
+        // unica pista era uma tela generica. Nao expoe nada ao usuario — o
+        // console do navegador nao e superficie publica.
+        console.error("[access/verify] troca do link falhou", error);
         setState("error");
       }
     },
@@ -63,7 +67,10 @@ export function VerifyClient({ caseSlug }: { caseSlug: string }) {
         <p className="mt-4 text-muted">
           It may have expired, already been used, or been opened on a different device.
         </p>
-        <Button href="/access" className="mt-8">
+        {/* O slug PRECISA ir junto. Sem ele /access nao sabe qual case, envia
+            campo vazio, a API recusa com 400 e o formulario ainda assim diz
+            "Check your inbox" — beco sem saida que mente para o visitante. */}
+        <Button href={`/access?next=/work/${caseSlug}/deep`} className="mt-8">
           Request a new link
         </Button>
       </div>

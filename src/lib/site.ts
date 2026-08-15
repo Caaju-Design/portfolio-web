@@ -4,7 +4,10 @@
  * por outro domínio sem refatoração. Ver security-architecture.md §2.
  */
 export const site = {
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://caaju.com.br",
+  // `||` e nao `??`: string vazia tambem precisa cair no padrao. Com `??`,
+  // NEXT_PUBLIC_SITE_URL="" virava url vazia, o magic link nascia como caminho
+  // relativo e o Firebase recusava com `auth/invalid-continue-uri`.
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://caaju.com.br",
   name: "Emanuel Ágape",
   legalEntity: "Caáju Design Ltda",
   role: "Fractional Product Design Lead",
