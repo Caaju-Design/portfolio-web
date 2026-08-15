@@ -1,7 +1,9 @@
 import { cookies } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
 
-import { SESSION_COOKIE, SESSION_MAX_AGE_MS, adminAuth } from "@/lib/firebase/admin";
+import { FieldValue } from "firebase-admin/firestore";
+
+import { SESSION_COOKIE, SESSION_MAX_AGE_MS, adminAuth, adminDb } from "@/lib/firebase/admin";
 import { logAccess } from "@/lib/audit";
 
 export const runtime = "nodejs";
@@ -35,11 +37,32 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ ok: false, message: "Link expired." }, { status: 401 });
     }
 
-    const existing = (decoded.caseAccess as string[] | undefined) ?? [];
-    const caseAccess = Array.from(new Set([...existing, caseSlug]));
-    await auth.setCustomUserClaims(decoded.uid, { caseAccess });
+    // A concessao vive no Firestore, NAO em custom claim do token.
+    //
+    // Custom claim so entra no token no momento da emissao. O codigo anterior
+    // chamava setCustomUserClaims e logo depois createSessionCookie(idToken)
+    // com o MESMO token de antes — o cookie nascia sem a claim, e a pagina
+    // protegida devolvia 404 para todo mundo, sempre. O gate nunca abriu.
+    //
+    // Guardar no banco tambem resolve revogacao: claim fica congelada no token
+    // por ate uma hora, entao tirar o acesso de alguem a material sob NDA so
+    // valeria no proximo refresh. Aqui, apagar o slug do documento derruba o
+    // acesso na requisicao seguinte.
+    //
+    // arrayUnion em vez de ler-modificar-gravar: dois pedidos simultaneos nao
+    // se sobrescrevem.
+    await adminDb()
+      .collection("clientUsers")
+      .doc(decoded.uid)
+      .set(
+        {
+          email: decoded.email ?? null,
+          caseAccess: FieldValue.arrayUnion(caseSlug),
+          lastGrantedAt: new Date(),
+        },
+        { merge: true },
+      );
 
-    // Reemite o token para carregar a claim nova antes de criar o cookie.
     const sessionCookie = await auth.createSessionCookie(idToken, {
       expiresIn: SESSION_MAX_AGE_MS,
     });

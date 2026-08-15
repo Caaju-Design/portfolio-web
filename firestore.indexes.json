@@ -46,6 +46,11 @@
       ]
     },
     {
+      "collectionGroup": "clientUsers",
+      "fieldPath": "*",
+      "indexes": []
+    },
+    {
       "collectionGroup": "leads",
       "fieldPath": "*",
       "indexes": []

@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 
 import { SESSION_COOKIE, adminAuth, adminDb } from "@/lib/firebase/admin";
@@ -15,6 +15,10 @@ import { Section } from "@/components/ui/Section";
  *
  * Retornamos notFound() em vez de 403 de propósito: 403 confirmaria que o
  * case existe, permitindo enumeração. 404 não confirma nada.
+ *
+ * Exceção deliberada: visitante já autenticado que pede um case ainda não
+ * liberado é redirecionado ao gate, não 404. Ele já provou o e-mail, e a
+ * existência do case já é pública em /work. Ver o comentário abaixo.
  */
 
 export const runtime = "nodejs";
@@ -41,8 +45,22 @@ export default async function DeepCasePage({
     notFound();
   }
 
-  const allowed = (decoded.caseAccess as string[] | undefined) ?? [];
-  if (!allowed.includes(slug)) notFound();
+  // A concessao mora no Firestore, nao no token — ver a rota /api/access/session.
+  // Custo: uma leitura por documento, por ID, sem query e sem indice.
+  const userSnap = await adminDb().collection("clientUsers").doc(decoded.uid).get();
+  const allowed = (userSnap.data()?.caseAccess as string[] | undefined) ?? [];
+
+  if (!allowed.includes(slug)) {
+    // Visitante AUTENTICADO pedindo um case que ele ainda nao liberou.
+    //
+    // Aqui 404 protegeria nada e custaria caro: /work lista os tres cases
+    // publicamente, com selo "Client access". A existencia deste case ja e
+    // publica. Devolver "This page doesn't exist" para quem ja entregou o
+    // e-mail e passou pela verificacao faz o lead concluir que o site quebrou.
+    //
+    // Para quem NAO tem sessao, o 404 continua — e o proxy nem chega aqui.
+    redirect(`/access?next=/work/${slug}/deep`);
+  }
 
   const snap = await adminDb().collection("cases").doc(slug).get();
   const data = snap.data();
