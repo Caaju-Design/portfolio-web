@@ -47,6 +47,7 @@ export default function WritingPage() {
     <>
       <Section spacing="loose">
         <SectionHeader
+        as="h1"
           eyebrow="Writing"
           title="Notes from the work"
           description="Things I've had to figure out on real projects — design systems, product discovery, leading design teams, and using AI without the theatre."

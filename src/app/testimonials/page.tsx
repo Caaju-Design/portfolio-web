@@ -20,6 +20,7 @@ export default function TestimonialsPage() {
     <>
       <Section spacing="loose">
         <SectionHeader
+        as="h1"
           eyebrow="References"
           title="What the people who worked with me say"
           description={`${testimonials.length} public recommendations on LinkedIn — including ${clients} clients who hired me and ${reports} designers who reported to me directly.`}

@@ -33,6 +33,7 @@ export default async function WorkPage() {
   return (
     <Section spacing="loose">
       <SectionHeader
+        as="h1"
         eyebrow="Selected work"
         title="Fewer cases, told properly"
         description="Three engagements worth reading in full, rather than a gallery of thumbnails. Each one shows the decisions, not just the screens."

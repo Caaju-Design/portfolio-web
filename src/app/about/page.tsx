@@ -75,6 +75,7 @@ export default function AboutPage() {
     <>
       <Section spacing="loose">
         <SectionHeader
+        as="h1"
           eyebrow="About"
           title="Nine years turning complex problems into products people actually use"
           description="I'm Emanuel Ágape. I lead design for teams building things that are genuinely difficult — regulated domains, enterprise scale, systems that have to survive their creator."

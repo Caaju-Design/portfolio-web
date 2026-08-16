@@ -54,6 +54,7 @@ export default function ServicesPage() {
     <>
       <Section spacing="loose">
         <SectionHeader
+        as="h1"
           eyebrow="Engagements"
           title="Three ways to bring me in"
           description="Three ongoing engagements and two fixed-scope entry points. Scope and investment are agreed on the call, once I understand what you actually need."
@@ -78,7 +79,7 @@ export default function ServicesPage() {
 
               <p className="mt-6 text-sm leading-relaxed text-muted text-pretty">{tier.summary}</p>
 
-              <p className="mt-6 border-l-2 border-primary/40 pl-4 text-sm text-text/90">
+              <p className="mt-6 border-l-2 border-primary/40 pl-4 text-sm text-text">
                 {tier.bestFor}
               </p>
 

@@ -6,7 +6,7 @@
     "dev": "next dev",
     "predev": "node scripts/nosync.mjs",
     "build": "next build",
-    "prebuild": "node scripts/nosync.mjs",
+    "prebuild": "node scripts/nosync.mjs && node scripts/check-adr.mjs",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "reinstall": "rm -rf node_modules node_modules.nosync \"node_modules 2\" \"node_modules 3\" && npm ci && node scripts/nosync.mjs --fix",
@@ -17,7 +17,8 @@
     "check-token": "node --env-file=.env.local scripts/check-token.mjs",
     "check-calendar": "node --env-file=.env.local scripts/check-calendar.mjs",
     "backfill-ttl": "node --env-file=.env.local scripts/backfill-ttl.mjs",
-    "check-indexes": "node --env-file=.env.local scripts/check-indexes.mjs"
+    "check-indexes": "node --env-file=.env.local scripts/check-indexes.mjs",
+    "check-adr": "node scripts/check-adr.mjs"
   },
   "dependencies": {
     "firebase": "^12.4.0",

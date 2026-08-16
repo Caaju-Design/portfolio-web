@@ -64,6 +64,7 @@ export default function HowWeWorkPage() {
     <>
       <Section spacing="loose">
         <SectionHeader
+        as="h1"
           eyebrow="The boring, important part"
           title="How engagements actually work"
           description="Most of the friction in hiring someone abroad isn't the work — it's the paperwork. Here it is upfront, so nobody has to ask."
