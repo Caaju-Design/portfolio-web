@@ -17,7 +17,9 @@
     "check-token": "node --env-file=.env.local scripts/check-token.mjs",
     "check-calendar": "node --env-file=.env.local scripts/check-calendar.mjs",
     "backfill-ttl": "node --env-file=.env.local scripts/backfill-ttl.mjs",
-    "check-indexes": "node --env-file=.env.local scripts/check-indexes.mjs"
+    "check-indexes": "node --env-file=.env.local scripts/check-indexes.mjs",
+    "e2e": "firebase emulators:exec --only auth,firestore \"node scripts/seed-emulator.mjs && playwright test\"",
+    "e2e:ui": "firebase emulators:exec --only auth,firestore \"node scripts/seed-emulator.mjs && playwright test --ui\""
   },
   "dependencies": {
     "firebase": "^12.4.0",
@@ -28,10 +30,13 @@
     "server-only": "^0.0.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.50.0",
     "@tailwindcss/postcss": "^4.1.13",
     "@types/node": "^22.15.3",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
+    "encoding": "^0.1.13",
+    "firebase-tools": "^14.0.0",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2"
   }
