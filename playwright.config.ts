@@ -33,10 +33,23 @@ export default defineConfig({
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
 
   webServer: {
-    command: "npm run dev",
+    // Em CI, contra o build de PRODUCAO. Localmente, contra o dev.
+    //
+    // `next dev` compila rota sob demanda, mantem HMR e roda verificacoes que
+    // nao existem em producao. Num runner compartilhado e frio isso fica lento
+    // o bastante para estourar os tempos limite — e os testes falhavam por
+    // motivo que nada tinha a ver com o comportamento sob teste.
+    //
+    // Testar o build de producao e mais rapido E mais honesto: e o artefato
+    // que o visitante recebe. Bug que so aparece em producao passaria batido
+    // num teste que so exercita o modo de desenvolvimento.
+    //
+    // Localmente segue `dev`, pelo ciclo curto de edicao e reexecucao.
+    command: process.env.CI ? "npm run build && npm start" : "npm run dev",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
+    // O build precisa caber aqui dentro.
+    timeout: 180_000,
     env: {
       // Admin SDK detecta estas duas sozinho.
       FIRESTORE_EMULATOR_HOST: "127.0.0.1:8080",
