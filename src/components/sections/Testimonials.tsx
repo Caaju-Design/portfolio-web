@@ -39,7 +39,7 @@ export function Testimonials() {
               vire parede de texto. O card inteiro é link para /testimonials,
               então não gastamos altura com um CTA repetido.
             */}
-            <blockquote className="line-clamp-8 leading-relaxed text-text/90 text-pretty">
+            <blockquote className="line-clamp-8 leading-relaxed text-text text-pretty">
               &ldquo;{t.quoteEn}&rdquo;
             </blockquote>
             <footer className="mt-6 flex gap-4 border-t border-border pt-5">

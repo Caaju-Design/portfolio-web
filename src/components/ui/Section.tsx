@@ -30,16 +30,28 @@ export function Section({
   );
 }
 
+/**
+ * O nivel do titulo e semantico, nao visual.
+ *
+ * Toda pagina precisa de exatamente um <h1>: e a ancora para quem navega por
+ * titulos com leitor de tela, e o sinal de relevancia mais forte que a pagina
+ * emite para busca. Seis paginas comecavam em <h2> e nao tinham nenhum.
+ *
+ * O tamanho continua `text-h2` de proposito — mudar a tag nao muda o desenho.
+ * Hierarquia semantica e hierarquia visual sao decisoes separadas.
+ */
 export function SectionHeader({
   eyebrow,
   title,
   description,
   align = "left",
+  as: Heading = "h2",
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
   align?: "left" | "center";
+  as?: "h1" | "h2";
 }) {
   return (
     <header className={cn("max-w-3xl", align === "center" && "mx-auto text-center")}>
@@ -48,7 +60,7 @@ export function SectionHeader({
           {eyebrow}
         </p>
       )}
-      <h2 className="text-h2 text-balance">{title}</h2>
+      <Heading className="text-h2 text-balance">{title}</Heading>
       {description && (
         <p className="mt-4 text-lead text-muted text-pretty">{description}</p>
       )}
