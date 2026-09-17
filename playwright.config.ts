@@ -54,13 +54,33 @@ export default defineConfig({
       // Admin SDK detecta estas duas sozinho.
       FIRESTORE_EMULATOR_HOST: "127.0.0.1:8080",
       FIREBASE_AUTH_EMULATOR_HOST: "127.0.0.1:9099",
+
+      // O projeto precisa ser o MESMO que o emulador serve (vem do .firebaserc),
+      // senao o teste procura oobCode num projeto e o app emite noutro.
+      FIREBASE_PROJECT_ID: "portfolio-6a82b",
+      NEXT_PUBLIC_FIREBASE_PROJECT_ID: "portfolio-6a82b",
+
+      // Valores de fachada. Contra o emulador nada disso e verificado — mas o
+      // SDK recusa iniciar com apiKey indefinida, e no runner nao existe
+      // .env.local. Declarar aqui torna o teste hermetico: roda igual na
+      // maquina do dev e no CI, sem depender de arquivo local nenhum.
+      NEXT_PUBLIC_FIREBASE_API_KEY: "fake-api-key",
+      NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: "localhost",
       // O SDK client precisa da versao NEXT_PUBLIC para chegar ao navegador.
       NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_HOST: "127.0.0.1:9099",
       // O magic link e gerado com `site.url` como continueUrl. Sem isto, o
       // .env.local manda o link para PRODUCAO e o teste sai do ambiente.
       NEXT_PUBLIC_SITE_URL: "http://localhost:3000",
-      // Sem n8n: em desenvolvimento a rota apenas registra o link no console
-      // em vez de lancar excecao. O teste pega o link pelo emulador.
+      // Sem n8n, de proposito: nenhum e-mail sai durante o teste.
+      //
+      // Em `dev` a rota so registra o link no console. No build de PRODUCAO
+      // (que e o que o CI usa) ela LANCA — e tudo bem: `generateSignInWithEmailLink`
+      // roda ANTES do envio, entao o oobCode ja existe no emulador quando a
+      // excecao acontece. O teste pega o link de la, nao do e-mail.
+      //
+      // Efeito colateral aceito: em CI o `logAccess({action:"requested"})` nao
+      // roda, porque vem depois do envio. Nenhum teste depende disso hoje — mas
+      // se um dia depender, e aqui que a explicacao mora.
       N8N_MAGIC_LINK_WEBHOOK_URL: "",
       N8N_WEBHOOK_SECRET: "",
     },
