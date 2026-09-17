@@ -12,6 +12,7 @@ const routes = [
   { path: "/how-we-work", priority: 0.8 },
   { path: "/about", priority: 0.7 },
   { path: "/writing", priority: 0.7 },
+  { path: "/lab", priority: 0.7 },
   { path: "/testimonials", priority: 0.6 },
   { path: "/call", priority: 0.8 },
   { path: "/legal/privacy", priority: 0.3 },
