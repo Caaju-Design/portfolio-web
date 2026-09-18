@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 
 const field =
   "w-full rounded-xl border border-border bg-surface-alt px-4 py-3 text-sm text-text " +
-  "placeholder:text-subtle focus:border-primary/60 focus:outline-none";
+  "placeholder:text-subtle focus:border-inverted focus:outline-none";
 
 export function AccessForm({ caseSlug }: { caseSlug: string }) {
   const [state, setState] = useState<"idle" | "sending" | "sent" | "broken">("idle");
@@ -62,7 +62,7 @@ export function AccessForm({ caseSlug }: { caseSlug: string }) {
         <p className="mt-3 text-sm text-muted text-pretty">
           The request could not be completed. This is not about your address — it is a
           problem here. Please try again, or write to{" "}
-          <a href="mailto:emanuel@caaju.com.br" className="text-primary underline">
+          <a href="mailto:emanuel@caaju.com.br" className="text-primary-text underline">
             emanuel@caaju.com.br
           </a>{" "}
           and I will send the link myself.
@@ -76,7 +76,7 @@ export function AccessForm({ caseSlug }: { caseSlug: string }) {
 
   if (state === "sent") {
     return (
-      <div className="rounded-(--radius-card) border border-primary/30 bg-surface p-8 text-center">
+      <div className="rounded-(--radius-card) border border-inverted bg-surface p-8 text-center">
         <h2 className="text-h3">Check your inbox</h2>
         <p className="mt-3 text-sm text-muted text-pretty">
           If everything checks out, you&apos;ll receive a secure link shortly. It expires in

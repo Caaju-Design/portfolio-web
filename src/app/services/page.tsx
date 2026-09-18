@@ -67,7 +67,7 @@ export default function ServicesPage() {
             <Card
               key={tier.slug}
               className={
-                tier.featured ? "surface-glow flex flex-col border-primary/40" : "flex flex-col"
+                tier.featured ? "surface-glow flex flex-col border-inverted" : "flex flex-col"
               }
             >
               <div className="flex items-start justify-between gap-3">
@@ -75,11 +75,11 @@ export default function ServicesPage() {
                 {tier.featured && <Badge tone="primary">Most common</Badge>}
               </div>
 
-              <p className="mt-6 font-display text-xl text-primary">{tier.cadence}</p>
+              <p className="mt-6 font-display text-xl text-primary-text">{tier.cadence}</p>
 
               <p className="mt-6 text-sm leading-relaxed text-muted text-pretty">{tier.summary}</p>
 
-              <p className="mt-6 border-l-2 border-primary/40 pl-4 text-sm text-text">
+              <p className="mt-6 border-l-2 border-inverted pl-4 text-sm text-text">
                 {tier.bestFor}
               </p>
 
@@ -114,7 +114,7 @@ export default function ServicesPage() {
           {projects.map((tier) => (
             <Card key={tier.slug} interactive>
               <h2 className="text-h3">{tier.name}</h2>
-              <p className="mt-1 text-sm text-primary">{tier.cadence}</p>
+              <p className="mt-1 text-sm text-primary-text">{tier.cadence}</p>
               <p className="mt-5 text-sm leading-relaxed text-muted text-pretty">{tier.summary}</p>
               <ul className="mt-6 space-y-2">
                 {tier.includes.map((line) => (

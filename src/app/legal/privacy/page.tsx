@@ -72,7 +72,7 @@ export default function PrivacyPage() {
   return (
     <Section spacing="loose">
       <div className="max-w-2xl">
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary-text">
           Version {POLICY_VERSION}
         </p>
         <h1 className="mt-4 text-h1">Privacy</h1>

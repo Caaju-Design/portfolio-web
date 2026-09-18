@@ -56,7 +56,7 @@ export function SectionHeader({
   return (
     <header className={cn("max-w-3xl", align === "center" && "mx-auto text-center")}>
       {eyebrow && (
-        <p className="mb-3 font-mono text-xs uppercase tracking-[0.18em] text-primary">
+        <p className="mb-3 font-mono text-xs uppercase tracking-[0.18em] text-primary-text">
           {eyebrow}
         </p>
       )}

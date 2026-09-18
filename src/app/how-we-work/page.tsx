@@ -75,7 +75,7 @@ export default function HowWeWorkPage() {
         <div className="space-y-16">
           {blocks.map((block) => (
             <section key={block.title}>
-              <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
+              <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-primary-text">
                 {block.title}
               </h2>
               <dl className="mt-6 divide-y divide-border border-y border-border">
@@ -92,7 +92,7 @@ export default function HowWeWorkPage() {
       </Section>
 
       <Section spacing="tight">
-        <div className="rounded-(--radius-card) border border-primary/25 bg-surface px-6 py-14 text-center md:px-16">
+        <div className="rounded-(--radius-card) border border-inverted bg-surface px-6 py-14 text-center md:px-16">
           <h2 className="mx-auto max-w-2xl text-h2 text-balance">
             Anything here you&apos;d need changed?
           </h2>

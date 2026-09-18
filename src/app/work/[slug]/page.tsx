@@ -39,7 +39,7 @@ export default async function CasePage({
         <div className="flex flex-wrap items-center gap-2">
           <Badge>{item.industry.replace(/-/g, " ")}</Badge>
           <Badge>{item.year}</Badge>
-          {item.deepAccess === "gated" && <Badge tone="accent">Client access</Badge>}
+          {item.deepAccess === "gated" && <Badge tone="strong">Client access</Badge>}
         </div>
 
         <h1 className="mt-6 max-w-4xl text-h1 text-balance">{item.title}</h1>
@@ -63,8 +63,8 @@ export default async function CasePage({
       </Section>
 
       {item.signals?.length > 0 && (
-        <Section spacing="tight" className="border-y border-border bg-surface/30">
-          <p className="mb-10 font-mono text-xs uppercase tracking-[0.18em] text-primary">
+        <Section spacing="tight" className="border-y border-border bg-surface">
+          <p className="mb-10 font-mono text-xs uppercase tracking-[0.18em] text-primary-text">
             Outcome
           </p>
           <SignalGrid signals={item.signals} />

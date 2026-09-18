@@ -10,14 +10,14 @@ import { Button } from "@/components/ui/Button";
  */
 export function Wall({ slug, title }: { slug: string; title: string }) {
   return (
-    <div className="relative overflow-hidden rounded-(--radius-card) border border-primary/25 bg-surface">
+    <div className="relative overflow-hidden rounded-(--radius-card) border border-inverted bg-surface">
       {/* Degradê sugerindo conteúdo continuando por baixo */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 -top-24 h-24 bg-gradient-to-b from-transparent to-surface"
       />
       <div className="px-6 py-14 text-center md:px-16">
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary-text">
           Continues behind a named link
         </p>
         <h2 className="mx-auto mt-5 max-w-2xl text-h2 text-balance">

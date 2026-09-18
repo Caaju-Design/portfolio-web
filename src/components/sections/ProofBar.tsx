@@ -5,7 +5,7 @@ const clients = ["Carrefour Brasil", "Riskex", "RD", "Banco BRB", "Stone", "Idez
 
 export function ProofBar() {
   return (
-    <section className="border-y border-border bg-surface/30 py-10" aria-label="Clients">
+    <section className="border-y border-border bg-surface py-10" aria-label="Clients">
       <Container>
         <p className="mb-6 text-center font-mono text-[0.65rem] uppercase tracking-[0.2em] text-subtle">
           Product work delivered for

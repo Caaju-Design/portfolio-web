@@ -113,7 +113,7 @@ function Arrow({
         "grid size-9 place-items-center rounded-full border transition-all duration-200",
         disabled
           ? "cursor-default border-border/40 text-muted/25"
-          : "border-border text-muted hover:border-primary/50 hover:bg-primary/10 hover:text-text active:scale-90",
+          : "border-border text-muted hover:border-inverted hover:bg-primary/10 hover:text-text active:scale-90",
       )}
     >
       <svg viewBox="0 0 16 16" className="size-3.5" fill="none" aria-hidden>

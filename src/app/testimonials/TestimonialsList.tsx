@@ -60,8 +60,8 @@ export function TestimonialsList() {
               className={cn(
                 "rounded-full border px-4 py-2 text-sm transition-colors",
                 active === f.key
-                  ? "border-primary/60 bg-primary/10 text-text"
-                  : "border-border text-muted hover:border-primary/30 hover:text-text",
+                  ? "border-transparent bg-primary text-on-primary"
+                  : "border-border text-muted hover:border-inverted hover:text-text",
               )}
             >
               {f.label}

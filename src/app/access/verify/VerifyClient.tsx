@@ -96,7 +96,7 @@ export function VerifyClient({ caseSlug }: { caseSlug: string }) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@company.com"
-          className="mt-6 w-full rounded-xl border border-border bg-surface-alt px-4 py-3 text-sm focus:border-primary/60 focus:outline-none"
+          className="mt-6 w-full rounded-xl border border-border bg-surface-alt px-4 py-3 text-sm focus:border-inverted focus:outline-none"
         />
         <Button type="submit" className="mt-4 w-full">
           Continue

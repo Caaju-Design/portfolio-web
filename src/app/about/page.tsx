@@ -88,11 +88,11 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section spacing="tight" className="border-y border-border bg-surface/30">
+      <Section spacing="tight" className="border-y border-border bg-surface">
         <ol className="space-y-12">
           {timeline.map((item) => (
             <li key={item.period} className="grid gap-4 md:grid-cols-[10rem_1fr] md:gap-12">
-              <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary-text">
                 {item.period}
               </p>
               <div className="max-w-2xl">
@@ -123,7 +123,7 @@ export default function AboutPage() {
       <Section spacing="tight">
         <div className="grid gap-12 md:grid-cols-2">
           <div>
-            <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
+            <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-primary-text">
               Education
             </h2>
             <dl className="mt-6 divide-y divide-border border-y border-border">
@@ -137,7 +137,7 @@ export default function AboutPage() {
           </div>
 
           <div>
-            <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
+            <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-primary-text">
               Where I work from
             </h2>
             <p className="mt-6 leading-relaxed text-muted text-pretty">

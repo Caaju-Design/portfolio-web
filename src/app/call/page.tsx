@@ -23,7 +23,7 @@ export default function CallPage() {
     <Section spacing="loose">
       <div className="grid gap-16 lg:grid-cols-[1fr_1.2fr]">
         <div className="min-w-0">
-          <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
+          <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary-text">
             45 minutes
           </p>
           <h1 className="mt-4 text-h1 text-balance">Let&apos;s see if it fits</h1>

@@ -23,6 +23,14 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: import.meta.dirname,
   /** firebase-admin usa binários e APIs de Node — não deve ser empacotado. */
   serverExternalPackages: ["firebase-admin"],
+  /**
+   * O design system da Caáju entrega FONTE, não build: `.tsx` com CSS Modules.
+   * Sem esta linha o Next trata o pacote como JavaScript já compilado, e o erro
+   * aparece como sintaxe inválida DENTRO de um arquivo do pacote — longe da
+   * causa, que é este arquivo aqui. O README do caaju-ui marca como o erro mais
+   * provável justamente porque o sintoma não aponta para ele.
+   */
+  transpilePackages: ["@caaju-design/caaju-ui-react"],
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [{ protocol: "https", hostname: "storage.googleapis.com" }],

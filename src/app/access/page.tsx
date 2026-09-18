@@ -20,7 +20,7 @@ export default async function AccessPage({
   return (
     <Section spacing="loose">
       <div className="mx-auto max-w-lg">
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary-text">
           Confidential material
         </p>
         <h1 className="mt-4 text-h1 text-balance">This case study goes deeper</h1>

@@ -45,10 +45,10 @@ export default async function WorkPage() {
             <Card interactive className="flex h-full flex-col">
               <div className="flex items-center gap-2">
                 <Badge>{item.industry.replace(/-/g, " ")}</Badge>
-                {item.deepAccess === "gated" && <Badge tone="accent">Client access</Badge>}
+                {item.deepAccess === "gated" && <Badge tone="strong">Client access</Badge>}
               </div>
 
-              <h2 className="mt-6 text-h3 transition-colors group-hover:text-primary">
+              <h2 className="mt-6 text-h3 transition-colors group-hover:text-primary-text">
                 {item.title}
               </h2>
               <p className="mt-3 flex-1 text-sm leading-relaxed text-muted text-pretty">
@@ -56,7 +56,7 @@ export default async function WorkPage() {
               </p>
 
               {item.signals?.[0] && (
-                <p className="mt-6 border-l-2 border-primary/40 pl-4 font-display text-lg leading-tight">
+                <p className="mt-6 border-l-2 border-inverted pl-4 font-display text-lg leading-tight">
                   {item.signals[0].value}
                 </p>
               )}

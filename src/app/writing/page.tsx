@@ -58,7 +58,7 @@ export default function WritingPage() {
         <div className="grid gap-6 md:grid-cols-2">
           {planned.map((item) => (
             <Card key={item.title} className="flex flex-col">
-              <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-primary">
+              <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-primary-text">
                 {item.topic}
               </p>
               <h2 className="mt-4 text-h3 text-balance">{item.title}</h2>

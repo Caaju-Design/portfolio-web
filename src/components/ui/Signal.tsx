@@ -25,8 +25,13 @@ const kindLabel: Record<SignalKind, string> = {
 };
 
 export function Signal({ data, className }: { data: SignalData; className?: string }) {
+  /**
+   * ⛔ Era `border-inverted`. Lima a 40% sobre fundo claro e linha que nao
+   *    se ve — o lima so existe como bloco preenchido. A barra vai no
+   *    invertido, que e o gesto chapado das referencias.
+   */
   return (
-    <div className={cn("border-l-2 border-primary/40 pl-5", className)}>
+    <div className={cn("border-l-4 border-inverted pl-5", className)}>
       <p className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-muted">
         {kindLabel[data.kind]}
       </p>
@@ -36,7 +41,7 @@ export function Signal({ data, className }: { data: SignalData; className?: stri
       <p className="mt-1 text-sm text-muted">{data.label}</p>
       {data.context && <p className="mt-1 text-xs text-subtle">{data.context}</p>}
       {data.attestedBy && (
-        <p className="mt-2 text-xs text-primary/80">Attested publicly by {data.attestedBy}</p>
+        <p className="mt-2 text-xs text-primary-text">Attested publicly by {data.attestedBy}</p>
       )}
     </div>
   );

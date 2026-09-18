@@ -42,13 +42,13 @@ export function Services() {
           <Card
             key={t.name}
             interactive
-            className={t.featured ? "surface-glow border-primary/40" : undefined}
+            className={t.featured ? "surface-glow border-inverted" : undefined}
           >
             <div className="flex items-start justify-between gap-3">
               <h3 className="text-h3">{t.name}</h3>
               {t.featured && <Badge tone="primary">Most common</Badge>}
             </div>
-            <p className="mt-6 font-display text-lg text-primary">{t.cadence}</p>
+            <p className="mt-6 font-display text-lg text-primary-text">{t.cadence}</p>
             <p className="mt-5 text-sm leading-relaxed text-muted text-pretty">{t.description}</p>
           </Card>
         ))}

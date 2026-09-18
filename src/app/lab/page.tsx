@@ -6,7 +6,7 @@ import { Section, SectionHeader } from "@/components/ui/Section";
 export const metadata: Metadata = {
   title: "Lab",
   description:
-    "The internal tools I built to run Caáju — a daily briefing, a delivery workspace and the system that will run the company's finances.",
+    "Six systems that run Caáju — money, signal, craft, revenue, people and trust. Built in-house, and honest about what is finished.",
   alternates: { canonical: "/lab" },
 };
 
@@ -16,17 +16,21 @@ export default function LabPage() {
       <SectionHeader
         as="h1"
         eyebrow="Lab"
-        title="The tools I built to run the studio"
-        description="I ask clients to trust me with their product. It seems fair to show what I build when the product is my own — and to keep it honest about what is finished and what is not."
+        title="The studio runs on software I built"
+        description="Every company has the same six problems: money, information, craft, revenue, people and trust. I gave each one a system instead of a spreadsheet. Two are in production, one is being built, three are still a plan — and the map says which is which."
       />
 
       <Constellation />
 
-      <div className="mt-16 max-w-2xl border-t border-border pt-8">
+      <div className="mt-14 grid max-w-4xl gap-6 border-t border-border pt-8 md:grid-cols-2">
         <p className="text-sm text-muted text-pretty">
-          Each of these started as a problem in my own week, not as a product idea. They
-          run on the same stack I would put in front of a client — and they are held to
-          the same bar, which is why the unfinished ones say so.
+          None of these started as a product idea. Each one started as a problem in my own
+          week that a spreadsheet stopped being able to hold.
+        </p>
+        <p className="text-sm text-muted text-pretty">
+          They run on the same stack I would put in front of a client, and they are held to
+          the same bar — which is exactly why the unfinished ones say so rather than
+          borrowing credit from the finished ones.
         </p>
       </div>
     </Section>

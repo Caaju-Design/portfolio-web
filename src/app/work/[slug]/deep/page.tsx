@@ -93,7 +93,7 @@ export default async function DeepCasePage({
       </div>
 
       <Section spacing="loose">
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary-text">
           Confidential · {viewer}
         </p>
         <h1 className="mt-4 text-h1">{data.title as string}</h1>

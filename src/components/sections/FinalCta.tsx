@@ -5,7 +5,7 @@ import { site } from "@/lib/site";
 export function FinalCta() {
   return (
     <Section spacing="loose">
-      <div className="surface-glow relative overflow-hidden rounded-(--radius-card) border border-primary/30 bg-surface px-6 py-16 text-center md:px-16 md:py-24">
+      <div className="surface-glow relative overflow-hidden rounded-(--radius-card) border border-inverted bg-surface px-6 py-16 text-center md:px-16 md:py-24">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 -top-32 h-64 opacity-30 blur-[100px]"

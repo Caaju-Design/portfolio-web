@@ -7,26 +7,30 @@ export function Hero() {
     <section className="relative overflow-hidden">
       {/* Placeholder do background WebGL — trocado por R3F na fase de animação.
           Mantido em CSS por enquanto para não comprometer o LCP. */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 grid-fade opacity-60" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[52rem] -translate-x-1/2 rounded-full opacity-25 blur-[120px]"
-        style={{
-          background:
-            "radial-gradient(closest-side, var(--color-primary), var(--color-accent), transparent)",
-        }}
-      />
+      <div aria-hidden className="pointer-events-none absolute inset-0 grid-fade opacity-70" />
+      {/* AQUI HAVIA UM BORRAO RADIAL de ciano para roxo, blur de 120px. Saiu por
+          dois motivos, nenhum de gosto: o roxo nao existe mais (destaque unico),
+          e lima borrado sobre fundo claro nao vira brilho — vira mancha amarela.
+          As referencias sao chapadas: a profundidade vem do contraste entre
+          fundo e superficie, nao de luz falsa. */}
 
       <Container>
         <div className="relative flex flex-col justify-center py-28 md:py-40">
-          <p className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-border bg-surface/60 px-3 py-1 text-xs text-muted">
+          <p className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted">
             <span className="size-1.5 rounded-full bg-success" aria-hidden />
             {site.availability}
           </p>
 
+          {/* O lima entra como BLOCO, nunca como letra: sobre fundo claro ele
+              mede 1,04:1 como cor de texto. Preenchido, com conteudo escuro em
+              cima, e o gesto das referencias. `box-decoration-clone` mantem o
+              preenchimento inteiro quando a linha quebra. */}
           <h1 className="max-w-4xl text-display text-balance">
             Product leadership for teams that{" "}
-            <span className="text-gradient">outgrew their design</span>.
+            <span className="bg-primary text-on-primary box-decoration-clone px-2">
+              outgrew their design
+            </span>
+            .
           </h1>
 
           <p className="mt-8 max-w-2xl text-lead text-muted text-pretty">

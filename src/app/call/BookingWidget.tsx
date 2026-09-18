@@ -9,7 +9,7 @@ type Step = "loading" | "picking" | "details" | "sending" | "done" | "error";
 
 const field =
   "w-full rounded-xl border border-border bg-surface-alt px-4 py-3 text-sm text-text " +
-  "placeholder:text-subtle focus:border-primary/60 focus:outline-none";
+  "placeholder:text-subtle focus:border-inverted focus:outline-none";
 
 function NavArrow({
   direction,
@@ -32,7 +32,7 @@ function NavArrow({
           // Controle desabilitado é isento da regra de contraste do WCAG.
           // Baixo contraste aqui é sinal, não descuido.
           ? "cursor-default border-border/40 text-muted/25"
-          : "border-border text-muted hover:border-primary/50 hover:bg-primary/10 hover:text-text active:scale-90",
+          : "border-border text-muted hover:border-inverted hover:bg-primary/10 hover:text-text active:scale-90",
       )}
     >
       <svg viewBox="0 0 16 16" className="size-3.5" fill="none" aria-hidden>
@@ -159,7 +159,7 @@ export function BookingWidget() {
 
   if (step === "loading") {
     return (
-      <div className="grid min-h-96 place-items-center rounded-(--radius-card) border border-border bg-surface/40">
+      <div className="grid min-h-96 place-items-center rounded-(--radius-card) border border-border bg-surface">
         <p className="text-sm text-muted">Loading availability…</p>
       </div>
     );
@@ -167,12 +167,12 @@ export function BookingWidget() {
 
   if (step === "error") {
     return (
-      <div className="grid min-h-96 place-items-center rounded-(--radius-card) border border-border bg-surface/40 p-8 text-center">
+      <div className="grid min-h-96 place-items-center rounded-(--radius-card) border border-border bg-surface p-8 text-center">
         <div>
           <p className="text-sm text-muted">No times available right now.</p>
           <a
             href="mailto:emanuel@caaju.com.br"
-            className="mt-4 inline-block text-sm text-primary underline underline-offset-4"
+            className="mt-4 inline-block text-sm text-primary-text underline underline-offset-4"
           >
             Email me instead
           </a>
@@ -183,7 +183,7 @@ export function BookingWidget() {
 
   if (step === "done") {
     return (
-      <div className="rounded-(--radius-card) border border-primary/40 bg-surface p-10 text-center">
+      <div className="rounded-(--radius-card) border border-inverted bg-surface p-10 text-center">
         <h2 className="text-h3">You&apos;re booked</h2>
         <p className="mt-4 text-sm text-muted text-pretty">
           A calendar invite is on its way to your inbox. You can reschedule or cancel from
@@ -192,7 +192,7 @@ export function BookingWidget() {
         {result?.meetLink && (
           <a
             href={result.meetLink}
-            className="mt-6 inline-block text-sm text-primary underline underline-offset-4"
+            className="mt-6 inline-block text-sm text-primary-text underline underline-offset-4"
           >
             Meeting link
           </a>
@@ -261,8 +261,8 @@ export function BookingWidget() {
                   className={cn(
                     "shrink-0 snap-start rounded-xl border px-4 py-3 text-center transition-colors",
                     activeDay?.key === day.key
-                      ? "border-primary/60 bg-primary/10 text-text"
-                      : "border-border text-muted hover:border-primary/30 hover:text-text",
+                      ? "border-transparent bg-primary text-on-primary"
+                      : "border-border text-muted hover:border-inverted hover:text-text",
                   )}
                 >
                   <span className="block text-[0.65rem] uppercase tracking-wider opacity-70">
@@ -280,7 +280,7 @@ export function BookingWidget() {
                 key={slot.start}
                 type="button"
                 onClick={() => { setSelectedSlot(slot.start); setStep("details"); }}
-                className="rounded-xl border border-border py-3 text-sm text-muted transition-colors hover:border-primary/60 hover:bg-primary/10 hover:text-text"
+                className="rounded-xl border border-border py-3 text-sm text-muted transition-colors hover:border-inverted hover:bg-primary/10 hover:text-text"
               >
                 {formatTime(slot.start)}
               </button>

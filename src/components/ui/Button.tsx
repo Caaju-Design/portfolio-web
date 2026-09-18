@@ -1,27 +1,50 @@
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "secondary" | "ghost";
+/**
+ * Botão do portfólio.
+ *
+ * ⚠️ ESPELHA `Botao` do @caaju-design/caaju-ui-react — não o embrulha, e a
+ *    escolha tem motivo. O componente do pacote é CSS Modules; sobrepor a
+ *    ele com utilitário Tailwind depende de qual folha sai por último no
+ *    bundle, e a que perde a disputa de mesma especificidade não dá erro:
+ *    o estilo simplesmente não acontece. É o defeito do `className`
+ *    descartado que o próprio `Botao.tsx` documenta, numa variante pior —
+ *    porque dependeria da ordem do empacotador, e não do código.
+ *
+ * ⛔ As DECISÕES vêm do sistema e não se negocia nenhuma:
+ *      - pílula (`--raio-pilula`), não retângulo arredondado
+ *      - `destaque` é preenchimento lima com texto ESCURO em cima. Texto
+ *        claro sobre #e3ff00 mede 1,13:1 — medição do `Botao.module.css`
+ *      - sem sombra colorida e sem deslocar no hover: as referências são
+ *        chapadas, e brilho lima em fundo claro vira borrão amarelo
+ *
+ * 💡 O que é DAQUI é só o tamanho: `size` não existe no sistema, que é de
+ *    aplicação e tem um botão só. Herói de marketing precisa de um botão
+ *    maior que o de uma barra de ferramentas. Candidato a voltar para o
+ *    sistema depois de provar uso (P145) — extraído, não inventado.
+ */
+type Variant = "primary" | "strong" | "secondary" | "ghost";
 type Size = "sm" | "md" | "lg";
 
 const base =
   "inline-flex items-center justify-center gap-2 rounded-(--radius-button) font-medium " +
-  "transition-all duration-200 ease-(--ease-out-expo) whitespace-nowrap " +
+  "border border-transparent whitespace-nowrap transition-colors duration-200 " +
   "disabled:pointer-events-none disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-primary text-bg hover:brightness-110 hover:-translate-y-0.5 " +
-    "shadow-[0_8px_30px_-8px_color-mix(in_oklab,var(--color-primary)_60%,transparent)]",
-  secondary:
-    "border border-border bg-surface text-text hover:border-primary/50 hover:bg-surface-alt",
+  /** A ação principal. Preenchimento do tema, conteúdo escuro — os três temas exigem. */
+  primary: "bg-primary text-on-primary hover:brightness-95",
+  /** O botão de alto contraste das referências: quase preto no claro. */
+  strong: "bg-inverted text-on-inverted hover:opacity-90",
+  secondary: "border-border bg-surface text-text hover:bg-surface-alt",
   ghost: "text-muted hover:text-text",
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-9 px-4 text-sm",
-  md: "h-11 px-5 text-sm",
-  lg: "h-13 px-7 text-base",
+  sm: "h-9 px-4 text-xs",
+  md: "h-11 px-6 text-sm",
+  lg: "h-13 px-8 text-base",
 };
 
 type Props = {
@@ -40,8 +63,14 @@ export function Button({
   className,
   ...props
 }: Props) {
+  /** `className` de quem chama vem por ÚLTIMO, para poder sobrepor. */
   const classes = cn(base, variants[variant], sizes[size], className);
 
+  /**
+   * ⛔ Ação que navega é `<a>`, não `<button onClick>`. Botão com `router.push`
+   *    quebra abrir em nova aba, copiar o endereço e o clique do meio — e não
+   *    dá erro nenhum, o que faz o defeito viver anos. Mesma regra do `Botao`.
+   */
   if (href) {
     const external = href.startsWith("http");
     return (

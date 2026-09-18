@@ -62,7 +62,7 @@ export default async function InsightsPage() {
 
       {/* 1 — Intenção. O bloco mais importante fica no topo. */}
       <Section spacing="tight">
-        <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
+        <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-primary-text">
           Buying signals
         </h2>
 
@@ -77,10 +77,13 @@ export default async function InsightsPage() {
                 <div
                   className={cn(
                     "grid size-12 shrink-0 place-items-center rounded-full font-display text-sm font-semibold",
+                    /* O roxo virou lima: as duas faixas de cima ficariam
+                       identicas. Agora elas se distinguem por PESO — cheio,
+                       invertido, neutro — e nao por matiz. */
                     s.score >= 70
-                      ? "bg-primary/15 text-primary"
+                      ? "bg-primary text-on-primary"
                       : s.score >= 40
-                        ? "bg-accent/15 text-accent"
+                        ? "bg-inverted text-on-inverted"
                         : "bg-surface-alt text-muted",
                   )}
                 >
@@ -107,7 +110,7 @@ export default async function InsightsPage() {
 
                 <a
                   href={`mailto:${s.email}`}
-                  className="shrink-0 text-sm text-primary hover:underline"
+                  className="shrink-0 text-sm text-primary-text hover:underline"
                 >
                   Email
                 </a>
@@ -120,7 +123,7 @@ export default async function InsightsPage() {
       {/* 2 — Comitê de compra: o sinal mais subestimado */}
       {committees.length > 0 && (
         <Section spacing="tight">
-          <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
+          <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-primary-text">
             Buying committees forming
           </h2>
           <p className="mt-3 max-w-2xl text-sm text-muted">
@@ -146,7 +149,7 @@ export default async function InsightsPage() {
 
       {/* 3 — Funil */}
       <Section spacing="tight">
-        <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-primary">Funnel</h2>
+        <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-primary-text">Funnel</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {funnel.map((step) => (
             <Card key={step.label}>
@@ -163,7 +166,7 @@ export default async function InsightsPage() {
 
       {/* 4 — Auditoria: o que o NDA exige */}
       <Section spacing="tight">
-        <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-primary">
+        <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-primary-text">
           Access log
         </h2>
         <p className="mt-3 max-w-2xl text-sm text-muted">
@@ -183,7 +186,7 @@ export default async function InsightsPage() {
             </thead>
             <tbody className="divide-y divide-border">
               {logs.slice(0, 40).map((log, i) => (
-                <tr key={i} className="bg-surface/40">
+                <tr key={i} className="bg-surface">
                   <td className="whitespace-nowrap px-4 py-3 text-subtle">
                     {relative(log.timestamp)}
                   </td>
