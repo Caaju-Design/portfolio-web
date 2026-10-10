@@ -36,10 +36,10 @@ export default async function WorkPage() {
         as="h1"
         eyebrow="Selected work"
         title="Fewer cases, told properly"
-        description="Three engagements worth reading in full, rather than a gallery of thumbnails. Each one shows the decisions, not just the screens."
+        description="A few engagements worth reading in full, rather than a gallery of thumbnails. Each one shows the decisions, not just the screens."
       />
 
-      <div className="mt-16 grid gap-6 lg:grid-cols-3">
+      <div className="mt-16 grid gap-6 md:grid-cols-2">
         {cases.map((item) => (
           <Link key={item.slug} href={`/work/${item.slug}`} className="group">
             <Card interactive className="flex h-full flex-col">
