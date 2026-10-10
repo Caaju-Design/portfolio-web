@@ -11,7 +11,8 @@
  *   - `deepAccess: "open"`: unico trabalho sem NDA. Trancar o proprio casamento
  *     atras do gate seria teatro.
  *   - Sem numero de resultado: a festa e em abril/2027. Volta depois (§8).
- *   - Imagens sem `src` renderizam como slot reservado ate os renders chegarem.
+ *   - Imagens: prints reais do site, montados em mock 3D, em public/cases/casamento/.
+ *     O antes/depois da Nossa Historia saiu: a versao antiga nao existe mais.
  *   - Contagem de commits medida no repo Caaju-Design/casamento em 10/10/2026.
  */
 export const casamento = {
@@ -84,8 +85,9 @@ export const casamento = {
     },
     {
       type: "image",
-      alt: "The invitation link arriving in WhatsApp, with the site preview",
-      caption: "The first thing a guest sees.",
+      src: "/cases/casamento/hero-3d.webp",
+      alt: "The invitation's hero, a watercolour painting with the G&E monogram, on a tablet and a phone",
+      caption: "What a guest sees when the link opens.",
     },
 
     { type: "heading", text: "The concept" },
@@ -105,8 +107,9 @@ export const casamento = {
     },
     {
       type: "image",
-      alt: "Close-up of the paper with a photograph in multiply and an ornament beside it",
-      caption: "The paper grain runs through the photograph and the ornament alike.",
+      src: "/cases/casamento/paper.webp",
+      alt: "Close-up of a watercolour wash fading into the grain of the paper",
+      caption: "Where the wash stops, the paper grain shows through.",
     },
 
     { type: "heading", text: "The experience" },
@@ -140,12 +143,20 @@ export const casamento = {
     },
     {
       type: "image",
-      alt: "The same section side by side in Portuguese and Arabic, showing the mirrored layout and the typeface swap",
+      src: "/cases/casamento/ptar-3d.webp",
+      alt: "The same section on two phones, in Portuguese and in Arabic, showing the mirrored layout and the typeface swap",
       caption: "Portuguese and Arabic, same section.",
     },
     {
       type: "image",
-      alt: "The metro diagram with the arrival selector changing the highlighted route",
+      src: "/cases/casamento/metro-3d.webp",
+      alt: "The painted metro diagram on a tablet, showing the route from Congonhas airport",
+      caption: "The route, drawn — not the official network map.",
+    },
+    {
+      type: "image",
+      src: "/cases/casamento/metro-rotas.gif",
+      alt: "The arrival selector switching between Congonhas, Guarulhos and the Tietê bus terminal, each with its own route",
       caption: "Pick where you land, get your route.",
     },
 
@@ -172,11 +183,6 @@ export const casamento = {
       type: "callout",
       title: "The decision I'd defend hardest",
       text: "The first version of Our Story pinned the screen while each photograph painted. On desktop it was the best thing in the build. On a phone it felt broken — the page simply stopped responding to the thumb, and nothing on screen explained why. We replaced it with paint-on-a-timer and free scrolling. The effect is less impressive and the section is better. Scroll is the one gesture a user owns; taking it away has to buy more than it costs, and here it didn't.",
-    },
-    {
-      type: "image",
-      alt: "Before and after of Our Story: the pinned scroll next to the free-scrolling version",
-      caption: "Before: the screen pinned while each photo painted. After: free scroll, paint on a timer.",
     },
 
     { type: "heading", text: "What I'd do differently" },

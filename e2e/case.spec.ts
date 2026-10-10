@@ -18,6 +18,14 @@ test.describe("case aberto", () => {
       "https://casamento.caaju.com.br",
     );
 
+    // As imagens do case sao estaticas em public/cases/casamento — nenhuma pode vir quebrada.
+    const imagens = page.locator("figure img");
+    await expect(imagens.first()).toBeVisible();
+    for (const img of await imagens.all()) {
+      await expect(img).toHaveJSProperty("complete", true);
+      expect(await img.evaluate((el: HTMLImageElement) => el.naturalWidth)).toBeGreaterThan(0);
+    }
+
     // Case aberto nao tem gate: o CTA e a call, nao o pedido de e-mail.
     await expect(page.getByLabel(/work email/i)).toHaveCount(0);
   });
