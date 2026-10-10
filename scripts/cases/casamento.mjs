@@ -11,7 +11,7 @@
  *   - `deepAccess: "open"`: unico trabalho sem NDA. Trancar o proprio casamento
  *     atras do gate seria teatro.
  *   - Sem numero de resultado: a festa e em abril/2027. Volta depois (§8).
- *   - Imagens: prints reais do site, montados em mock 3D, em public/cases/casamento/.
+ *   - Imagens: prints reais do site, montados em tablet/notebook/celular sobre aquarela da paleta, em public/cases/casamento/.
  *     O antes/depois da Nossa Historia saiu: a versao antiga nao existe mais.
  *   - Contagem de commits medida no repo Caaju-Design/casamento em 10/10/2026.
  */
@@ -85,8 +85,8 @@ export const casamento = {
     },
     {
       type: "image",
-      src: "/cases/casamento/hero-3d.webp",
-      alt: "The invitation's hero, a watercolour painting with the G&E monogram, on a tablet and a phone",
+      src: "/cases/casamento/hero-devices.webp",
+      alt: "The invitation's hero, a watercolour painting with the G&E monogram, on a laptop and a phone",
       caption: "What a guest sees when the link opens.",
     },
 
@@ -143,14 +143,14 @@ export const casamento = {
     },
     {
       type: "image",
-      src: "/cases/casamento/ptar-3d.webp",
-      alt: "The same section on two phones, in Portuguese and in Arabic, showing the mirrored layout and the typeface swap",
+      src: "/cases/casamento/ptar-devices.webp",
+      alt: "The same section in Arabic on a tablet and in Portuguese on a phone, showing the mirrored layout and the typeface swap",
       caption: "Portuguese and Arabic, same section.",
     },
     {
       type: "image",
-      src: "/cases/casamento/metro-3d.webp",
-      alt: "The painted metro diagram on a tablet, showing the route from Congonhas airport",
+      src: "/cases/casamento/metro-devices.webp",
+      alt: "The route from Congonhas airport on a tablet and a phone, with the painted line diagram and the Line 17 hours warning",
       caption: "The route, drawn — not the official network map.",
     },
     {
