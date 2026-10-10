@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { Blocks } from "@/components/case/Blocks";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
@@ -44,6 +45,11 @@ export default async function CasePage({
 
         <h1 className="mt-6 max-w-4xl text-h1 text-balance">{item.title}</h1>
         <p className="mt-6 max-w-2xl text-lead text-muted text-pretty">{item.headline}</p>
+        {item.liveUrl && (
+          <Button href={item.liveUrl} variant="strong" className="mt-8">
+            Visit the live site
+          </Button>
+        )}
 
         <dl className="mt-12 grid gap-8 border-t border-border pt-8 sm:grid-cols-4">
           {[
@@ -77,9 +83,13 @@ export default async function CasePage({
       )}
 
       <Section>
-        <div className="max-w-2xl space-y-6 text-lead leading-relaxed text-muted">
-          <p>Public case content goes here once the real material is approved.</p>
-        </div>
+        {item.publicBlocks.length > 0 ? (
+          <Blocks blocks={item.publicBlocks} />
+        ) : (
+          <div className="max-w-2xl space-y-6 text-lead leading-relaxed text-muted">
+            <p>Public case content goes here once the real material is approved.</p>
+          </div>
+        )}
       </Section>
 
       <Section spacing="tight">

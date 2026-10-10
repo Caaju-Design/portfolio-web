@@ -10,6 +10,8 @@
 import { getApps, initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 
+import { casamento } from "./cases/casamento.mjs";
+
 if (!process.env.FIRESTORE_EMULATOR_HOST) {
   console.error(
     "\n  FIRESTORE_EMULATOR_HOST nao definido.\n" +
@@ -82,6 +84,8 @@ const CASES = [
     status: "published",
     order: 3,
   },
+  // O case real, inteiro: e o unico com blocos publicos, e o e2e confere que eles renderizam.
+  casamento,
 ];
 
 const lote = db.batch();

@@ -1,5 +1,6 @@
 import "server-only";
 import { adminDb } from "@/lib/firebase/admin";
+import type { Block } from "@/components/case/Blocks";
 import type { SignalData } from "@/components/ui/Signal";
 
 export type CaseSummary = {
@@ -30,9 +31,23 @@ export async function listCases(): Promise<CaseSummary[]> {
     .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 }
 
-export async function getCase(slug: string): Promise<CaseSummary | null> {
+export type CaseDetail = CaseSummary & {
+  publicBlocks: Block[];
+  tools?: string[];
+  /** Trabalho que esta no ar e pode ser visitado — a prova e clicar. */
+  liveUrl?: string;
+};
+
+/**
+ * Pagina publica do case. `deepBlocks` sai daqui de proposito: o restrito so
+ * e lido em /work/[slug]/deep, depois da sessao verificada. Sem isso, um
+ * `{...item}` descuidado num componente cliente vazaria o material sob NDA.
+ */
+export async function getCase(slug: string): Promise<CaseDetail | null> {
   const snap = await adminDb().collection("cases").doc(slug).get();
   const data = snap.data();
   if (!data || data.status !== "published") return null;
-  return data as CaseSummary;
+  const { deepBlocks: _deep, ...rest } = data as CaseDetail & { deepBlocks?: unknown };
+  void _deep;
+  return { ...rest, publicBlocks: rest.publicBlocks ?? [] };
 }

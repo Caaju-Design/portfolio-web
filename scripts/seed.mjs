@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 /**
  * Seed inicial do Firestore.
- * Uso: node --env-file=.env.local scripts/seed.mjs
+ * Uso: node --env-file=.env.local scripts/seed.mjs            (todos)
+ *      node --env-file=.env.local scripts/seed.mjs casamento  (so os slugs citados)
+ *
+ * Gravar so o case novo e o caminho normal: os placeholders abaixo nao devem
+ * sobrescrever o que ja foi ajustado direto no banco.
  *
  * Idempotente: rodar de novo apenas sobrescreve os mesmos documentos.
  * Conteúdo é placeholder — substituir quando o material real dos cases
@@ -10,6 +14,8 @@
 
 import { cert, getApps, initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
+
+import { casamento } from "./cases/casamento.mjs";
 
 if (!getApps().length) {
   initializeApp({
@@ -23,7 +29,8 @@ if (!getApps().length) {
 
 const db = getFirestore();
 
-const cases = [
+const allCases = [
+  { ...casamento, createdAt: new Date(), updatedAt: new Date() },
   {
     slug: "carrefour",
     order: 1,
@@ -138,6 +145,14 @@ const cases = [
     updatedAt: new Date(),
   },
 ];
+
+const only = process.argv.slice(2);
+const unknown = only.filter((slug) => !allCases.some((c) => c.slug === slug));
+if (unknown.length) {
+  console.error(`\n  Slug desconhecido: ${unknown.join(", ")}\n`);
+  process.exit(1);
+}
+const cases = only.length ? allCases.filter((c) => only.includes(c.slug)) : allCases;
 
 const batch = db.batch();
 for (const item of cases) {
