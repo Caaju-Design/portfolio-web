@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { NavPill } from "@/components/layout/NavPill";
 import { nav, site } from "@/lib/site";
 
 export function Header() {
@@ -16,17 +17,7 @@ export function Header() {
             {site.name}
           </Link>
 
-          <nav aria-label="Main" className="hidden items-center gap-8 md:flex">
-            {nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm text-muted transition-colors hover:text-text"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+          <NavPill items={nav} />
 
           <div className="flex items-center gap-3">
             <span className="hidden text-xs text-muted lg:inline">
