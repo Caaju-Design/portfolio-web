@@ -22,7 +22,7 @@ export function Header() {
         <Link
           href="/"
           aria-label="Caáju — home"
-          className="flex h-9 items-center rounded-button px-3"
+          className="mr-2 flex h-9 items-center rounded-button pl-4 pr-3 md:mr-6"
         >
           <Image
             src="/brand/caaju-logo-branco.webp"
@@ -38,7 +38,7 @@ export function Header() {
 
         <Link
           href="/call"
-          className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-button bg-on-inverted px-4 text-xs font-medium text-inverted transition-opacity duration-200 hover:opacity-90"
+          className="ml-2 inline-flex h-9 items-center justify-center whitespace-nowrap rounded-button bg-on-inverted px-5 text-xs font-medium text-inverted transition-opacity duration-200 hover:opacity-90 md:ml-6"
         >
           Book a call
         </Link>
