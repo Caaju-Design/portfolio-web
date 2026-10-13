@@ -3,8 +3,10 @@
 /**
  * O menu principal como trilho em pílula, com o realce lima deslizando até a página atual.
  *
- * Vem do seletor Research / Code / Refine do Studio do PORTINARI: trilho branco com borda,
- * itens em `muted`, e o item atual sobre uma pílula `primary` com texto `on-primary`.
+ * Vem do seletor Research / Code / Refine do Studio do PORTINARI, na versão preta: vive
+ * dentro da pílula `inverted` do Header, itens em `on-inverted-muted`, e o item atual
+ * sobre uma pílula `primary` com texto `on-primary`. Não tem fundo nem borda próprios —
+ * o trilho é o do Header.
  *
  * ⚠️ A pílula é UM elemento que se move, e não um fundo por item. Fundo por item só troca
  *    de lugar; o que dá a sensação de deslizar é a mesma caixa animando `transform` e
@@ -33,6 +35,8 @@ interface Posicao {
 }
 
 function estaAtivo(pathname: string, href: string) {
+  // "/" só vale na raiz: com o `startsWith` ele casaria com toda página do site.
+  if (href === "/") return pathname === "/";
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
@@ -73,12 +77,12 @@ export function NavPill({ items }: { readonly items: readonly Item[] }) {
   return (
     <nav
       aria-label="Main"
-      className="relative hidden items-center rounded-button border border-border bg-surface p-1 md:flex"
+      className="relative hidden items-center md:flex"
     >
       <span
         aria-hidden="true"
         className={cn(
-          "absolute top-1 bottom-1 left-0 rounded-button bg-primary",
+          "absolute inset-y-0 left-0 rounded-button bg-primary",
           animar &&
             "transition-[transform,width,opacity] duration-[var(--duracao-transicao)] ease-[var(--curva-suave)] motion-reduce:transition-none",
         )}
@@ -99,9 +103,11 @@ export function NavPill({ items }: { readonly items: readonly Item[] }) {
             }}
             aria-current={ativo ? "page" : undefined}
             className={cn(
-              "relative z-10 rounded-button px-4 py-1.5 text-sm transition-colors lg:px-5",
+              "relative z-10 flex h-9 items-center rounded-button px-3 text-sm transition-colors lg:px-4",
               "duration-[var(--duracao-transicao)] ease-[var(--curva-suave)]",
-              ativo ? "font-medium text-on-primary" : "text-muted hover:text-text",
+              ativo
+                ? "font-medium text-on-primary"
+                : "text-on-inverted-muted hover:text-on-inverted",
             )}
           >
             {item.label}

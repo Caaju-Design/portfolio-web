@@ -201,6 +201,15 @@ h1, h2, h3, h4 {
   border-radius: 4px;
 }
 
+/* Dentro de superfície invertida (header em pílula, rodapé) o contorno quase
+   preto some no fundo quase preto. Lá o anel é o lima.
+   ⚠️ Fica fora de @layer de propósito, igual à regra de cima: regra
+      sem camada vence QUALQUER utilitário do Tailwind — um
+      `focus-visible:outline-primary` no componente perderia em silêncio. */
+.bg-inverted :focus-visible {
+  outline-color: var(--color-primary);
+}
+
 /* Respeita quem pediu menos movimento */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

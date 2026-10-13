@@ -33,6 +33,14 @@ export const nav = [
   { label: "Lab", href: "/lab" },
 ] as const;
 
+/**
+ * O menu do header: o `nav` com "Home" na frente.
+ * A logo também leva para o início, mas nem todo mundo sabe que logo é link —
+ * o item explícito é para quem não sabe. Fica fora do `nav` porque o rodapé
+ * também lista o `nav`, e lá "Home" seria ruído.
+ */
+export const headerNav = [{ label: "Home", href: "/" }, ...nav] as const;
+
 export const footerNav = [
   { label: "How we work", href: "/how-we-work" },
   { label: "References", href: "/testimonials" },
