@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { HeaderAutoHide } from "@/components/layout/HeaderAutoHide";
 import { NavPill } from "@/components/layout/NavPill";
 import { headerNav } from "@/lib/site";
 
@@ -14,10 +15,13 @@ import { headerNav } from "@/lib/site";
  * 🔴 O foco global é contorno `inverted` — quase preto, invisível sobre esta
  *    pílula. Quem troca para o lima é a regra `.bg-inverted :focus-visible`
  *    do globals.css, não utilitário aqui (ver o porquê lá).
+ *
+ * 💡 Some ao rolar para baixo e volta ao rolar para cima — ver `HeaderAutoHide`.
+ *    O Header continua componente de servidor; só o invólucro é de cliente.
  */
 export function Header() {
   return (
-    <header className="pointer-events-none sticky top-0 z-50 flex justify-center px-4 pt-3">
+    <HeaderAutoHide>
       <div className="pointer-events-auto flex items-center gap-1 rounded-button bg-inverted p-1.5 shadow-lg shadow-black/10">
         <Link
           href="/"
@@ -43,6 +47,6 @@ export function Header() {
           Book a call
         </Link>
       </div>
-    </header>
+    </HeaderAutoHide>
   );
 }
