@@ -244,69 +244,116 @@ h1, h2, h3, h4 {
 }
 
 /* ============================================================
-   JUCA — a tela de entrada reproduzida em /lab
+   JUCA — a tela de entrada reproduzida em /lab (ADR-030)
    ============================================================
-   🔴 EXCEÇÃO DE COR CONSCIENTE, e a única deste arquivo que não
-      traduz token do caaju-ui.
+   Espelho de `painel/app/auth/(entrada)/moldura.module.css` e
+   `login/pagina.module.css` do repositório do Juca — que vieram
+   do Portinari sem mudança de desenho. Mesmos tokens, mesma
+   ordem; o comentário de cada bloco diz de qual regra de lá ele é.
 
-      Este bloco não é o portfólio: é a IDENTIDADE DO JUCA desenhada
-      dentro dele, para que a porta verdadeira do produto seja
-      reconhecível antes do clique. Puxar o lima e o cinza do sistema
-      aqui descaracterizaria a tela que a pessoa precisa reconhecer —
-      seria um desenho novo, não a porta dela.
+   🔴 SÓ TOKEN. A primeira versão (PR #11) recriava o gradiente
+      com hex à mão e saiu com outra cara. Aqui a cor vem toda do
+      caaju-ui: o filme lê `--cor-destaque` e `--fundo-do-filme`
+      no canvas, e o vidro é `color-mix` dos tokens invertidos.
 
-      Por isso os valores moram AQUI, num lugar só, e não espalhados
-      em className. Quando o Juca publicar os tokens dele, estas
-      linhas viram var() e somem. (ADR-029)
-
-   Nada aqui tem texto escuro sobre fundo escuro: o cartão usa branco
-   sobre #0b0f0b-ish (>15:1) e o botão é branco com texto neutro-900.
+   ⚠️ Se mudar lá, muda aqui copiando — não ajustando no olho.
    ============================================================ */
 
-/* A aurora. As faixas do print não têm borda: são raios diagonais
-   com transição longa. Por isso o desenho vem em DUAS partes —
-   `juca-aurora` é o fundo quase-preto e o recorte, e
-   `juca-rays` é a camada interna que leva o `blur`.
-   Separado porque `filter` em background não existe: só em
-   elemento. A camada passa da caixa (-inset) para o desfoque não
-   deixar borda clara na beirada. */
-@utility juca-aurora {
-  background-color: #050705;
+/* `.palco` — o paper com o filme. Cantos amplos, o dobro do cartão,
+   para ler como OBJETO. O fundo de CSS é o que fica sem WebGL. */
+@utility juca-palco {
+  --fundo-do-filme: var(--cor-superficie-invertida);
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: calc(2 * var(--raio-cartao));
+  background:
+    radial-gradient(60% 50% at 30% 35%, var(--cor-destaque-tenue), transparent),
+    var(--fundo-do-filme);
 }
 
-@utility juca-rays {
-  background-image:
-    linear-gradient(
-      115deg,
-      #0d1208 0%, #2c4a18 7%, #7fae2b 11%, #cbe44f 13.5%, #6f9a2c 17%,
-      #1e3312 23%, #35541c 31%, #9cc33a 35%, #c9e24d 37%, #5d8428 41%,
-      #16250e 49%, #243c14 59%, #6e9a2b 63%, #9dc43a 65.5%, #30501a 71%,
-      #0c1107 84%, #070a05 100%
-    );
-  filter: blur(64px);
+/* `[data-cartao]` (global.css do Juca) + o vidro da moldura + `.cartao`.
+   Vidro sobre filme escuro pede texto CLARO: os tokens de conteúdo
+   são redefinidos só aqui dentro, como lá. */
+@utility juca-vidro {
+  --cor-conteudo: var(--cor-conteudo-invertido);
+  --cor-conteudo-sutil: color-mix(in srgb, var(--cor-conteudo-invertido) 72%, transparent);
+  --cor-borda: color-mix(in srgb, var(--cor-conteudo-invertido) 30%, transparent);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--largura-cartao);
+  padding: var(--espaco-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espaco-4);
+  text-align: center;
+  color: var(--cor-conteudo);
+  background: color-mix(in srgb, var(--cor-superficie) 12%, transparent);
+  border: var(--borda-largura) solid color-mix(in srgb, var(--cor-conteudo-invertido) 45%, transparent);
+  border-radius: var(--raio-cartao);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  box-shadow: inset 0 var(--borda-largura) 0 color-mix(in srgb, var(--cor-conteudo-invertido) 35%, transparent);
 }
 
-/* A sombra do canto direito. No print a aurora morre no preto antes
-   de chegar à borda — sem ela as faixas ficam uniformes e a tela
-   perde profundidade. Vai POR CIMA dos raios, sem blur. */
-@utility juca-vignette {
-  background-image:
-    linear-gradient(100deg, transparent 30%, rgb(5 7 5 / 0.55) 68%, rgb(5 7 5 / 0.96) 94%),
-    radial-gradient(ellipse 70% 60% at 85% 12%, rgb(5 7 5 / 0.9) 0%, transparent 70%);
+/* `.marca` — o quadradinho do "J". `line-height: 1` porque a caixa
+   de linha inclui o descendente, e a letra ficaria alta. */
+@utility juca-marca {
+  display: grid;
+  place-items: center;
+  width: var(--altura-icone);
+  height: var(--altura-icone);
+  border-radius: var(--raio-cartao-interno);
+  background: var(--cor-superficie-invertida);
+  color: var(--cor-conteudo-invertido);
+  font-weight: var(--peso-medio);
+  line-height: 1;
+  margin-bottom: var(--espaco-2);
 }
 
-/* O cartão de vidro. `backdrop-filter` degrada sozinho em navegador
-   que não suporta: fica o fundo translúcido, que já basta. */
-@utility juca-glass {
-  background-color: rgb(255 255 255 / 0.08);
-  border: 1px solid rgb(255 255 255 / 0.18);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+/* `.titulo` sobre o `Titulo` do sistema. */
+@utility juca-titulo {
+  margin: 0;
+  font-family: var(--texto-titulo-pagina-font-family);
+  font-size: var(--texto-titulo-pagina-font-size);
+  font-weight: var(--texto-titulo-pagina-font-weight);
+  line-height: var(--texto-titulo-pagina-line-height);
 }
 
-@utility juca-logo {
-  background-color: #10140f;
-  color: #ffffff;
+/* O `Apagado` do sistema: opacidade sobre a cor do vidro. Sobre o
+   filme escuro, branco a 70% mede bem acima de 4,5:1 — a regra do
+   ADR-020 é sobre `text-muted` no fundo CLARO, não sobre isto. */
+@utility juca-apagado {
+  margin: 0;
+  opacity: 0.7;
+}
+@utility juca-miudo {
+  font-size: var(--texto-miudo-font-size);
+  line-height: var(--texto-miudo-line-height);
+}
+
+/* `Botao tom="discreto"` + `.acao`: branco com contorno, largura cheia.
+   Superfície branca → texto escuro, senão seria branco sobre branco. */
+@utility juca-acao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espaco-2);
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: var(--espaco-4);
+  padding: var(--espaco-3) var(--espaco-6);
+  font-size: var(--texto-rotulo-font-size);
+  line-height: var(--texto-rotulo-line-height);
+  font-weight: var(--peso-medio);
+  white-space: nowrap;
+  text-decoration: none;
+  border-radius: var(--raio-pilula);
+  border: var(--borda-largura) solid var(--cor-borda);
+  background: var(--cor-superficie);
+  color: var(--cor-superficie-invertida);
 }
 
 @utility grid-fade {
