@@ -244,7 +244,7 @@ h1, h2, h3, h4 {
 }
 
 /* ============================================================
-   JUCA — a tela de entrada reproduzida em /lab (ADR-030)
+   ENTRADA — as portas do Juca e do Portinari em /lab (ADR-030, 031)
    ============================================================
    Espelho de `painel/app/auth/(entrada)/moldura.module.css` e
    `login/pagina.module.css` do repositório do Juca — que vieram
@@ -261,7 +261,7 @@ h1, h2, h3, h4 {
 
 /* `.palco` — o paper com o filme. Cantos amplos, o dobro do cartão,
    para ler como OBJETO. O fundo de CSS é o que fica sem WebGL. */
-@utility juca-palco {
+@utility entrada-palco {
   --fundo-do-filme: var(--cor-superficie-invertida);
   position: relative;
   display: grid;
@@ -276,7 +276,7 @@ h1, h2, h3, h4 {
 /* `[data-cartao]` (global.css do Juca) + o vidro da moldura + `.cartao`.
    Vidro sobre filme escuro pede texto CLARO: os tokens de conteúdo
    são redefinidos só aqui dentro, como lá. */
-@utility juca-vidro {
+@utility entrada-vidro {
   --cor-conteudo: var(--cor-conteudo-invertido);
   --cor-conteudo-sutil: color-mix(in srgb, var(--cor-conteudo-invertido) 72%, transparent);
   --cor-borda: color-mix(in srgb, var(--cor-conteudo-invertido) 30%, transparent);
@@ -300,7 +300,7 @@ h1, h2, h3, h4 {
 
 /* `.marca` — o quadradinho do "J". `line-height: 1` porque a caixa
    de linha inclui o descendente, e a letra ficaria alta. */
-@utility juca-marca {
+@utility entrada-marca {
   display: grid;
   place-items: center;
   width: var(--altura-icone);
@@ -314,7 +314,7 @@ h1, h2, h3, h4 {
 }
 
 /* `.titulo` sobre o `Titulo` do sistema. */
-@utility juca-titulo {
+@utility entrada-titulo {
   margin: 0;
   font-family: var(--texto-titulo-pagina-font-family);
   font-size: var(--texto-titulo-pagina-font-size);
@@ -325,18 +325,18 @@ h1, h2, h3, h4 {
 /* O `Apagado` do sistema: opacidade sobre a cor do vidro. Sobre o
    filme escuro, branco a 70% mede bem acima de 4,5:1 — a regra do
    ADR-020 é sobre `text-muted` no fundo CLARO, não sobre isto. */
-@utility juca-apagado {
+@utility entrada-apagado {
   margin: 0;
   opacity: 0.7;
 }
-@utility juca-miudo {
+@utility entrada-miudo {
   font-size: var(--texto-miudo-font-size);
   line-height: var(--texto-miudo-line-height);
 }
 
 /* `Botao tom="discreto"` + `.acao`: branco com contorno, largura cheia.
    Superfície branca → texto escuro, senão seria branco sobre branco. */
-@utility juca-acao {
+@utility entrada-acao {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -351,9 +351,68 @@ h1, h2, h3, h4 {
   white-space: nowrap;
   text-decoration: none;
   border-radius: var(--raio-pilula);
-  border: var(--borda-largura) solid var(--cor-borda);
+  /* As cores entram por variável para o `destaque` poder trocá-las sem
+     depender de qual utility o Tailwind emite por último. */
+  border: var(--borda-largura) solid var(--acao-borda, var(--cor-borda));
+  background: var(--acao-fundo, var(--cor-superficie));
+  color: var(--acao-texto, var(--cor-superficie-invertida));
+}
+
+/* `.separador` do Portinari — o "ou" entre os dois caminhos. As linhas
+   são pseudo-elementos: um <hr> de cada lado seria conteúdo no DOM. */
+@utility entrada-separador {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-3);
+  width: 100%;
+  color: var(--cor-conteudo-sutil);
+  font-size: var(--texto-miudo-font-size);
+  &::before,
+  &::after {
+    content: "";
+    flex: 1;
+    height: var(--borda-largura);
+    background-color: var(--cor-borda);
+  }
+}
+
+/* `formulario.module.css` do Portinari: alinhado à esquerda dentro do
+   cartão centralizado — rótulo centralizado faz o olho procurar a linha. */
+@utility entrada-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  width: 100%;
+  text-align: left;
+}
+
+/* O `Campo` do caaju-ui, desenhado. É <a>: ver PortinariScreen. */
+@utility entrada-campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+  color: inherit;
+  text-decoration: none;
+}
+@utility entrada-rotulo {
+  font-size: var(--texto-apoio-font-size);
+  font-weight: var(--peso-medio);
+}
+/* O `input` do global.css do Studio, dentro do vidro: pílula branca, sem
+   contorno (`border-color: transparent` da moldura). */
+@utility entrada-caixa {
+  display: block;
+  height: var(--altura-controle);
+  border-radius: var(--raio-pilula);
+  border: var(--borda-largura) solid transparent;
   background: var(--cor-superficie);
-  color: var(--cor-superficie-invertida);
+}
+
+/* `Botao tom="destaque"`: lima preenchendo, conteúdo escuro. */
+@utility entrada-acao-destaque {
+  --acao-fundo: var(--cor-destaque);
+  --acao-texto: var(--cor-destaque-conteudo);
+  --acao-borda: transparent;
 }
 
 @utility grid-fade {

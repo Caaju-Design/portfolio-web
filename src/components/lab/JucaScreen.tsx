@@ -20,35 +20,29 @@
  *    `data-tema="lima"` do <html> é o mesmo do Juca. (ADR-030)
  */
 
-import { FilmeDePrisma } from "./FilmeDePrisma";
 import { LogoDoGoogle } from "./LogoDoGoogle";
+import { PalcoDeEntrada } from "./PalcoDeEntrada";
 
 const DESTINO = "https://juca.caaju.com.br/auth/login";
 
 export function JucaScreen() {
   return (
-    <div className="juca-palco min-h-[32rem] md:min-h-[38rem]">
-      <FilmeDePrisma />
+    <PalcoDeEntrada>
+      <span className="entrada-marca" aria-hidden="true">
+        J
+      </span>
+      <h2 className="entrada-titulo">Juca</h2>
+      <p className="entrada-apagado">BPO Financeiro da Caáju</p>
 
-      <div className="relative z-10 grid w-full place-items-center px-(--espaco-5) py-(--espaco-8)">
-        <div className="juca-vidro">
-          <span className="juca-marca" aria-hidden="true">
-            J
-          </span>
-          <h2 className="juca-titulo">Juca</h2>
-          <p className="juca-apagado">BPO Financeiro da Caáju</p>
+      {/* Branco com contorno e o logo do Google, como no Juca. Navega: é <a>, não <button>. */}
+      <a href={DESTINO} className="entrada-acao">
+        <LogoDoGoogle />
+        Entrar com Google
+      </a>
 
-          {/* Branco com contorno e o logo do Google, como no Juca. Navega: é <a>, não <button>. */}
-          <a href={DESTINO} className="juca-acao">
-            <LogoDoGoogle />
-            Entrar com Google
-          </a>
-
-          <p className="juca-apagado juca-miudo">
-            Depois do Google, o painel pede o código do seu app autenticador.
-          </p>
-        </div>
-      </div>
-    </div>
+      <p className="entrada-apagado entrada-miudo">
+        Depois do Google, o painel pede o código do seu app autenticador.
+      </p>
+    </PalcoDeEntrada>
   );
 }

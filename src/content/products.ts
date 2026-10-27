@@ -47,7 +47,7 @@ export const products: Product[] = [
     summary: "Tactical orchestration for design work.",
     role: "Where the studio's work is planned, sequenced and shipped.",
     status: "live",
-    url: "https://portinari.caaju.com.br/auth",
+    url: "https://portinari.caaju.com.br/auth/login",
   },
   {
     slug: "bonner",

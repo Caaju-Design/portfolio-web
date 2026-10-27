@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { JucaScreen } from "./JucaScreen";
+import { PortinariScreen } from "./PortinariScreen";
 import { cn } from "@/lib/cn";
 import { products, statusLabel, type Product } from "@/content/products";
 
@@ -25,6 +26,15 @@ import { products, statusLabel, type Product } from "@/content/products";
  *    20% em tela de celular não é coluna, é tira.
  */
 
+/**
+ * Ferramentas que mostram a própria porta no lugar do painel de texto. Só as
+ * de acesso 100% do time (ADR-029); o resto segue com resumo e status.
+ */
+const portas: Record<string, () => React.ReactNode> = {
+  juca: JucaScreen,
+  portinari: PortinariScreen,
+};
+
 const pontoDeStatus: Record<Product["status"], string> = {
   live: "bg-success",
   building: "bg-warning",
@@ -34,6 +44,7 @@ const pontoDeStatus: Record<Product["status"], string> = {
 export function ToolsBrowser() {
   const [ativo, setAtivo] = useState<string>("juca");
   const selecionado = products.find((p) => p.slug === ativo) ?? products[0];
+  const Porta = portas[selecionado.slug];
 
   return (
     // 20/80: a lista é índice, a ferramenta é o conteúdo.
@@ -71,10 +82,10 @@ export function ToolsBrowser() {
       </ul>
 
       <div aria-live="polite" className="min-w-0">
-        {selecionado.slug === "juca" ? (
-          // O Juca mostra a própria porta, e mais nada: sem resumo, sem status
-          // em volta. A tela já diz o que é.
-          <JucaScreen />
+        {Porta ? (
+          // A ferramenta mostra a própria porta, e mais nada: sem resumo, sem
+          // status em volta. A tela já diz o que é.
+          <Porta />
         ) : (
           <div className="rounded-(--radius-card) border border-border bg-surface p-6 md:p-8">
             <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary-text">
