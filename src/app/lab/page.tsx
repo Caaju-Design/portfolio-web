@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { Constellation } from "@/components/sections/Constellation";
+import { ToolsBrowser } from "@/components/lab/ToolsBrowser";
 import { Section, SectionHeader } from "@/components/ui/Section";
 
 export const metadata: Metadata = {
@@ -17,10 +17,10 @@ export default function LabPage() {
         as="h1"
         eyebrow="Lab"
         title="The studio runs on software I built"
-        description="Every company has the same six problems: money, information, craft, revenue, people and trust. I gave each one a system instead of a spreadsheet. Two are in production, one is being built, three are still a plan — and the map says which is which."
+        description="Every company has the same six problems: money, information, craft, revenue, people and trust. I gave each one a system instead of a spreadsheet. Two are in production, one is being built, three are still a plan — and the list says which is which."
       />
 
-      <Constellation />
+      <ToolsBrowser />
 
       <div className="mt-14 grid max-w-4xl gap-6 border-t border-border pt-8 md:grid-cols-2">
         <p className="text-sm text-muted text-pretty">

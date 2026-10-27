@@ -244,30 +244,69 @@ h1, h2, h3, h4 {
 }
 
 /* ============================================================
-   CONSTELAÇÃO — /lab
-   Movimento vive aqui, não no componente: animação é linguagem
-   visual e pertence ao design system.
-   A regra global de prefers-reduced-motion acima neutraliza as
-   três automaticamente. Nada a fazer no componente.
+   JUCA — a tela de entrada reproduzida em /lab
+   ============================================================
+   🔴 EXCEÇÃO DE COR CONSCIENTE, e a única deste arquivo que não
+      traduz token do caaju-ui.
+
+      Este bloco não é o portfólio: é a IDENTIDADE DO JUCA desenhada
+      dentro dele, para que a porta verdadeira do produto seja
+      reconhecível antes do clique. Puxar o lima e o cinza do sistema
+      aqui descaracterizaria a tela que a pessoa precisa reconhecer —
+      seria um desenho novo, não a porta dela.
+
+      Por isso os valores moram AQUI, num lugar só, e não espalhados
+      em className. Quando o Juca publicar os tokens dele, estas
+      linhas viram var() e somem. (ADR-029)
+
+   Nada aqui tem texto escuro sobre fundo escuro: o cartão usa branco
+   sobre #0b0f0b-ish (>15:1) e o botão é branco com texto neutro-900.
    ============================================================ */
 
-/* As ligações se desenham em vez de aparecerem prontas. O mapa
-   se monta na frente de quem chega — é o que o torna explicativo. */
-@keyframes constellation-draw {
-  from { stroke-dashoffset: var(--dash); }
-  to   { stroke-dashoffset: 0; }
+/* A aurora. As faixas do print não têm borda: são raios diagonais
+   com transição longa. Por isso o desenho vem em DUAS partes —
+   `juca-aurora` é o fundo quase-preto e o recorte, e
+   `juca-rays` é a camada interna que leva o `blur`.
+   Separado porque `filter` em background não existe: só em
+   elemento. A camada passa da caixa (-inset) para o desfoque não
+   deixar borda clara na beirada. */
+@utility juca-aurora {
+  background-color: #050705;
 }
 
-/* Deriva contínua e mínima. Sem isso o grafo parece captura de
-   tela; com exagero, vira enfeite que atrapalha a leitura. */
-@keyframes constellation-drift {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50%      { transform: translate3d(0, -6px, 0); }
+@utility juca-rays {
+  background-image:
+    linear-gradient(
+      115deg,
+      #0d1208 0%, #2c4a18 7%, #7fae2b 11%, #cbe44f 13.5%, #6f9a2c 17%,
+      #1e3312 23%, #35541c 31%, #9cc33a 35%, #c9e24d 37%, #5d8428 41%,
+      #16250e 49%, #243c14 59%, #6e9a2b 63%, #9dc43a 65.5%, #30501a 71%,
+      #0c1107 84%, #070a05 100%
+    );
+  filter: blur(64px);
 }
 
-@keyframes constellation-in {
-  from { opacity: 0; transform: scale(0.94); }
-  to   { opacity: 1; transform: scale(1); }
+/* A sombra do canto direito. No print a aurora morre no preto antes
+   de chegar à borda — sem ela as faixas ficam uniformes e a tela
+   perde profundidade. Vai POR CIMA dos raios, sem blur. */
+@utility juca-vignette {
+  background-image:
+    linear-gradient(100deg, transparent 30%, rgb(5 7 5 / 0.55) 68%, rgb(5 7 5 / 0.96) 94%),
+    radial-gradient(ellipse 70% 60% at 85% 12%, rgb(5 7 5 / 0.9) 0%, transparent 70%);
+}
+
+/* O cartão de vidro. `backdrop-filter` degrada sozinho em navegador
+   que não suporta: fica o fundo translúcido, que já basta. */
+@utility juca-glass {
+  background-color: rgb(255 255 255 / 0.08);
+  border: 1px solid rgb(255 255 255 / 0.18);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+@utility juca-logo {
+  background-color: #10140f;
+  color: #ffffff;
 }
 
 @utility grid-fade {
